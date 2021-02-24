@@ -1,11 +1,18 @@
 const fetch = require('isomorphic-fetch');
+const { promises: fs } = require('fs');
+const { join } = require('path');
 
 const [uri] = process.argv.slice(2);
 
-fetch(uri, {
-  method: 'GET',
-})
-  .then((res) => {
-    return res.text();
+fs.readFile(join(__dirname, 'video.webm')).then((buffer) => {
+  const body = new Blob(buffer, { type: 'video/webm' });
+
+  fetch(uri, {
+    method: 'POST',
+    body,
   })
-  .then(console.log);
+    .then((res) => {
+      return res.json();
+    })
+    .then(console.log);
+});
