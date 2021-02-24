@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Upload</title>
+  </head>
+  <body>
+    <label>Video:<br /><input type="file" accept="video/*" /></label>
+
+    <script>
+      /**
+       * @type {HTMLInputElement}
+       */
+      const input = document.querySelector('input[type="file"]');
+      input.addEventListener('change', function () {
+        if (this.files.length) {
+          const [file] = this.files;
+
+          const formData = new FormData();
+
+          formData.append('video.webm', file, { filename: file.name });
+
+          console.log('Uploading file...');
+
+          fetch('https://example.com', {
+            method: 'POST',
+            body: formData,
+          })
+            .then((res) => {
+              return res.json();
+            })
+            .then((json) => {
+              console.log('File uploaded...');
+              console.log('Response:');
+              console.log(json);
+            })
+            .catch((error) => {
+              console.log('Failed upload file...');
+              console.log('Error:');
+              console.log(error);
+            });
+        }
+      });
+    </script>
+  </body>
+</html>
