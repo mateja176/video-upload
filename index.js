@@ -1,4 +1,5 @@
 const fetch = require('isomorphic-fetch');
+const Blob = require('blob');
 const { promises: fs } = require('fs');
 const { join } = require('path');
 
