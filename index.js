@@ -14,7 +14,7 @@ fs.readFile(join(__dirname, 'video.webm'))
 
     const formData = new FormData();
 
-    formData.append('video.webm', buffer);
+    formData.append('video.webm', buffer, { filename: 'video.webm' });
 
     console.log('Uploading file...');
 
